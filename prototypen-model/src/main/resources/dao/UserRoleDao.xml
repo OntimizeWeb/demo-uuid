@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup
+	xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	catalog="" schema="${mainschema}" table="usr_user_role"
+	datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+	<DeleteKeys>
+		<Column>uro_id</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>uro_id</Column>
+	</UpdateKeys>
+	<GeneratedKey>uro_id</GeneratedKey>
+	<Queries>
+
+		<Query id="userRole">
+
+			<Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM ${mainschema}.usr_user AS u
+                        INNER JOIN ${mainschema}.usr_user_role AS ur ON (u.usr_id = ur.usr_id)
+                        INNER JOIN ${mainschema}.usr_role AS r ON ur.rol_id = r.rol_id
+                        
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+		</Query>
+		<Query id="serverPermissions">
+			<Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM ${mainschema}.usr_role AS r
+                        INNER JOIN ${mainschema}.usr_role_server_permission AS rosp ON r.role_id = rosp.role_id
+                        INNER JOIN ${mainschema}.usr_server_permission AS sepe ON rosp.sepe_id = sepe.sepe_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+        </Sentence>
+		</Query>
+		<Query id="clientPermissions">
+			<Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM ${mainschema}.usr_role
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+		</Query>
+
+		<Query id="fullRolesWithUser">
+
+			<AmbiguousColumns>
+				<AmbiguousColumn name="usr_id" prefix="fulljoin" />
+				<AmbiguousColumn name="rol_id" prefix="fulljoin" />
+			</AmbiguousColumns>
+			<FunctionColumns>
+				<FunctionColumn name="ACTIVED"
+					value="(CASE WHEN tur.rol_id IS NOT NULL THEN 'S' ELSE 'N' END)" />
+			</FunctionColumns>
+			<Sentence>
+					<![CDATA[
+					select
+						 #COLUMNS#
+					from
+            			(
+            				select 
+              					tu.*,
+              					tr.*
+            				from
+              					${mainschema}.usr_user tu,
+              					${mainschema}.usr_role tr
+             			) fulljoin
+						LEFT JOIN ${mainschema}.usr_user_role tur ON fulljoin.rol_id = tur.rol_id AND fulljoin.usr_id = tur.usr_id					
+					#WHERE#
+					#ORDER#
+					]]>
+			</Sentence>
+		</Query>
+		<Query id="rolesWithoutUser">
+			<FunctionColumns>
+				<FunctionColumn name="actived" value="'N'" />
+				<FunctionColumn name="usr_id" value="null" />
+				<FunctionColumn name="uro_id" value="null" />
+			</FunctionColumns>
+			<Sentence>
+				<![CDATA[
+					select 
+					    #COLUMNS#	
+					from
+						${mainschema}.usr_role					
+					#WHERE#
+					#ORDER#
+					]]>		
+		</Sentence>
+		</Query>
+	</Queries>
+</JdbcEntitySetup>

@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/prototypen
+    username: testuser
+    password: testuser
