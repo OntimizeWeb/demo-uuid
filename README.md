@@ -31,7 +31,7 @@ It is recommended to use environment variables in Spring configuration files for
 
  - If a deployment of a development database is not available, run the database in a docker container to deploy the application on a local machine:
 
-		docker run --name postgresql -e POSTGRESQL_POSTGRES_PASSWORD=test -e POSTGRESQL_USERNAME=testuser -e POSTGRESQL_PASSWORD=testuser -e POSTGRESQL_DATABASE=<%= baseName %> -p 5432:5432 bitnami/postgresql:11.12.0-debian-10-r13
+		docker run --name postgresql -e POSTGRESQL_POSTGRES_PASSWORD=test -e POSTGRESQL_USERNAME=testuser -e POSTGRESQL_PASSWORD=testuser -e POSTGRESQL_DATABASE=prototypen -p 5432:5432 bitnami/postgresql:11.12.0-debian-10-r13
 
  - Being the parameters the following:
 
@@ -45,7 +45,7 @@ The parameters in the application-local.yaml file must match the values of the d
  - Compile and deploy the application with the following commands:
 
 		mvn install -Plocal
-		java -jar <%= baseName %>-boot/target/<%= baseName %>-boot.jar --spring.profiles.active=local
+		java -jar prototypen-boot/target/prototypen-boot.jar --spring.profiles.active=local
 
  - The application is accessible using the url: http://localhost:8080
 
@@ -53,7 +53,7 @@ The parameters in the application-local.yaml file must match the values of the d
 
  - Go to the application folder
 
-		cd <%= baseName %>
+		cd prototypen
 
  - With docker privileges run the following command to start the deployment:
 
