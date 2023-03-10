@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
   ## provided as basic setup. replace as needed
   repository: 179934523585.dkr.ecr.eu-west-3.amazonaws.com/prototypen
-  version: 0.0.1.alpha.4374670683.1
+  version: 0.0.0
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -93,6 +93,21 @@ ingress:
   tls:
     secretName: prototypen-tls
     enabled: true
+
+# tenant management. The application is a tenant manager
+tenantManagement:
+  enabled: false
+  # advanced mode. Enables the configuration for organization management
+  advanced: false
+  #keycloak:
+    #adminuser: user
+
+# tenant manager. Location of the Ontimize Tenant Manager if used.
+tenantManager:
+  enabled: false
+  #url: ""
+  #uncomment to give a specific name to the tenant manager secret (if exists won't be created)
+  #secret:
 
 # Kafka. If used. Will be provided as environment variables to the pods.
 kafka:

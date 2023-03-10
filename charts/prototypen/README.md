@@ -10,7 +10,7 @@ See values.yaml to get detailed information of parameters.
 
 Ingress and TLS are enabled by default. Value in host is provided as HOST environment variable to the pod.
 
-Also prometheus annotations, probe paths, kafka and other parameters are configured by default, and setup with required configuration for K8s Imatia development cluster. Configuration is provided as environment variables to the pod (and so available to the Ontimize application as defined in application-xx.yaml files).
+Also prometheus annotations, probe paths, kafka, keycloak and other parameters are configured by default, and setup with required configuration for K8s Imatia development cluster. Configuration is provided as environment variables to the pod (and so available to the Ontimize application as defined in application-xx.yaml files).
 
 Resources (CPU, Memory can be customized as needed).
 

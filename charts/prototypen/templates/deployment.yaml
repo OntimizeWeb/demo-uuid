@@ -62,6 +62,20 @@ spec:
               secretKeyRef:
                 name: {{ printf "%s-db-secret" (include "fullname" .) }}
                 key: password
+        {{- if .Values.tenantManagement.enabled }}
+          - name: APP_DATABASE_SERVICE
+            value: {{ .Values.database.service }}
+          - name: APP_DATABASE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ printf "%s-db-secret" (include "fullname" .) }}
+                key: adminuser
+          - name: APP_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ printf "%s-db-secret" (include "fullname" .) }}
+                key: adminpassword
+        {{- end }}
         {{- if .Values.micrometer.metrics.tags.source }}
           - name: METRIC_TAG_SOURCE
             value: {{ .Values.micrometer.metrics.tags.source }}
@@ -84,6 +98,20 @@ spec:
             value: {{ .Values.kafka.server }}
           - name: SCHEMA_REGISTRY_URL
             value: {{ .Values.kafka.schemaRegistryUrl }}
+        {{- end }}          
+        {{- if .Values.tenantManager.enabled }}
+          - name: TENANT_MANAGER
+            value: {{ .Values.tenantManager.url }}
+          - name: TENANT_MANAGER_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.tenantManager.secret | default (printf "%s-tm" (include "fullname" .))  }}
+                key: user
+          - name: TENANT_MANAGER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.tenantManager.secret | default  (printf "%s-tm" (include "fullname" .))  }}
+                key: password
         {{- end }}
         {{- if .Values.s3.enabled }}
           - name: S3_ENDPOINT
@@ -121,6 +149,33 @@ spec:
         {{- if .Values.ingress.tls }}
           - name: TLS
             value: enabled
+        {{- end }}
+        {{- if .Values.tenantManagement.enabled }}
+          - name: KEYCLOAK_SERVICE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ printf "%s-config" (include "fullname" .) }}
+                key: keycloak-service
+          {{- if .Values.tenantManagement.advanced }}
+          - name: KEYCLOAK_USERNAME
+            value: {{ .Values.tenantManagement.keycloak.adminUser}}
+          - name: KEYCLOAK_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: keycloak
+                key: admin-password
+          {{- else }}
+          - name: KEYCLOAK_AUTH_CLIENT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ printf "%s-config" (include "fullname" .) }}
+                key: keycloak-auth-client
+          - name: KEYCLOAK_AUTH_FRONT_CLIENT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ printf "%s-config" (include "fullname" .) }}
+                key: keycloak-auth-front-client
+          {{- end }}
         {{- end }}
           ports:
           - name: http
