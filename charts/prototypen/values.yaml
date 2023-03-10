@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
   ## provided as basic setup. replace as needed
   repository: 179934523585.dkr.ecr.eu-west-3.amazonaws.com/prototypen
-  version: 0.0.0
+  version: 0.0.1.alpha.4382941761.1
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
