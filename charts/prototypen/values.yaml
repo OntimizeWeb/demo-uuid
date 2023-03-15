@@ -52,7 +52,7 @@ resources:
     memory: 128Mi
 
 database:
-  service: main-development-pg-db.cgrvjx9wau6r.eu-west-3.rds.amazonaws.com/prototypen
+  service: main-development-pg-db.cgrvjx9wau6r.eu-west-3.rds.amazonaws.com
 ## Observability
 micrometer:
   metrics:
@@ -100,7 +100,7 @@ tenantManagement:
   # advanced mode. Enables the configuration for organization management
   advanced: false
   #keycloak:
-    #adminuser: user
+    #adminUser: user
 
 # tenant manager. Location of the Ontimize Tenant Manager if used.
 tenantManager:

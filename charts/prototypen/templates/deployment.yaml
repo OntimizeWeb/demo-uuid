@@ -46,8 +46,6 @@ spec:
             value: {{ include "fullname" . }}
           - name: APPLICATION_NAME
             value: {{ .Values.service.name }}
-          - name: NAMESPACE_SUBDOMAIN
-            value: ""
           - name: HOST
             value: {{ .Values.ingress.host }}
           - name: DATABASE_SERVICE
@@ -99,6 +97,20 @@ spec:
           - name: SCHEMA_REGISTRY_URL
             value: {{ .Values.kafka.schemaRegistryUrl }}
         {{- end }}          
+        {{- if .Values.tenantManager.enabled }}
+          - name: TENANT_MANAGER
+            value: {{ .Values.tenantManager.url }}
+          - name: TENANT_MANAGER_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.tenantManager.secret | default (printf "%s-tm" (include "fullname" .))  }}
+                key: user
+          - name: TENANT_MANAGER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.tenantManager.secret | default  (printf "%s-tm" (include "fullname" .))  }}
+                key: password
+        {{- end }}
         {{- if .Values.tenantManager.enabled }}
           - name: TENANT_MANAGER
             value: {{ .Values.tenantManager.url }}
@@ -192,6 +204,7 @@ spec:
             httpGet:
               path: {{ .Values.readinessProbe.probePath | default .Values.probePath }}
               port: {{ .Values.probePort | default .Values.service.internalPort }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
             timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
