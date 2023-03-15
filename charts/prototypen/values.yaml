@@ -52,7 +52,7 @@ resources:
     memory: 128Mi
 
 database:
-  service: main-development-pg-db.cgrvjx9wau6r.eu-west-3.rds.amazonaws.com/prototypen
+  service: main-development-pg-db.cgrvjx9wau6r.eu-west-3.rds.amazonaws.com
 ## Observability
 micrometer:
   metrics:
@@ -93,6 +93,21 @@ ingress:
   tls:
     secretName: prototypen-tls
     enabled: true
+
+# tenant management. The application is a tenant manager
+tenantManagement:
+  enabled: false
+  # advanced mode. Enables the configuration for organization management
+  advanced: false
+  #keycloak:
+    #adminUser: user
+
+# tenant manager. Location of the Ontimize Tenant Manager if used.
+tenantManager:
+  enabled: false
+  #url: ""
+  #uncomment to give a specific name to the tenant manager secret (if exists won't be created)
+  #secret:
 
 # Kafka. If used. Will be provided as environment variables to the pods.
 kafka:

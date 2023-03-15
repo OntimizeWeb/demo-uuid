@@ -10,9 +10,9 @@ import com.imatia.implatform.prototypen.api.core.service.IMainService;
 
 @RestController
 public class MainRestController {
-	private static final String ENV_JS = "(function (window) {\n" + 
-			"  window.__env = window.__env || {};\n" + 
-			"  // API url\n" + 
+	private static final String ENV_JS = "(function (window) {\n" +
+			"  window.__env = window.__env || {};\n" +
+			"  // API url\n" +
 			"  window.__env.apiUrl = '%API_URL%';\n" +
 			"}(this));";
 
@@ -23,7 +23,7 @@ public class MainRestController {
 	public String main() {
 		return "index";
 	}
-	
+
 	@GetMapping(value = "/app/env/env.js", produces = "application/javascript")
 	public @ResponseBody String env() {
 		return ENV_JS.replace("%API_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() : "");

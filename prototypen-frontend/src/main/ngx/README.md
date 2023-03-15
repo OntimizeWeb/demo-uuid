@@ -1,4 +1,4 @@
-# <%= baseName %>
+# prototypen
 
 ## Requirements
 
