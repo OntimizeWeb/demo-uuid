@@ -1,0 +1,35 @@
+version: '3'
+volumes:
+  prototypen-db-vol:
+services:
+  database:
+    image: bitnami/postgresql:11.14.0-debian-10-r21
+    environment:
+      - POSTGRESQL_DATABASE=prototypen
+      - POSTGRESQL_USERNAME=testuser
+      - POSTGRESQL_PASSWORD=testuser
+      - POSTGRESQL_POSTGRES_PASSWORD=postgrespwd
+    hostname: db.prototypen
+    container_name: prototypen-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - prototypen-db-vol:/bitnami/postgresql
+    restart: always
+  app:
+    image: maven:3-jdk-11
+    environment:
+      - DATABASE_SERVICE=db.prototypen:5432
+      - DATABASE_USER=testuser
+      - DATABASE_PASSWORD=testuser
+    hostname: prototypen
+    container_name: prototypen
+    working_dir: /app
+    command: sh -c "mvn -U clean install -P compose && java -jar prototypen-boot/target/prototypen-boot.jar --spring.profiles.active=compose"
+    volumes:
+      - ./:/app/
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
