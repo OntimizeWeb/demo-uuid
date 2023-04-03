@@ -38,7 +38,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Run the Maven verify phase
-      run: mvn --batch-mode --update-snapshots -P staging  verify
+      run: mvn --batch-mode --update-snapshots verify
     - name: Build the Docker image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}

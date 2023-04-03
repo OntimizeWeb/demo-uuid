@@ -48,6 +48,7 @@ spec:
             value: {{ .Values.service.name }}
           - name: HOST
             value: {{ .Values.ingress.host }}
+        {{- if not .Values.tenantManager.enabled }}
           - name: DATABASE_SERVICE
             value: {{ .Values.database.service }}
           - name: DATABASE_USER
@@ -60,6 +61,7 @@ spec:
               secretKeyRef:
                 name: {{ printf "%s-db-secret" (include "fullname" .) }}
                 key: password
+        {{- end }}
         {{- if .Values.tenantManagement.enabled }}
           - name: APP_DATABASE_SERVICE
             value: {{ .Values.database.service }}
@@ -96,20 +98,6 @@ spec:
             value: {{ .Values.kafka.server }}
           - name: SCHEMA_REGISTRY_URL
             value: {{ .Values.kafka.schemaRegistryUrl }}
-        {{- end }}          
-        {{- if .Values.tenantManager.enabled }}
-          - name: TENANT_MANAGER
-            value: {{ .Values.tenantManager.url }}
-          - name: TENANT_MANAGER_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.tenantManager.secret | default (printf "%s-tm" (include "fullname" .))  }}
-                key: user
-          - name: TENANT_MANAGER_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.tenantManager.secret | default  (printf "%s-tm" (include "fullname" .))  }}
-                key: password
         {{- end }}
         {{- if .Values.tenantManager.enabled }}
           - name: TENANT_MANAGER
@@ -117,12 +105,24 @@ spec:
           - name: TENANT_MANAGER_USERNAME
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.tenantManager.secret | default (printf "%s-tm" (include "fullname" .))  }}
+                name: {{ .Values.tenantManager.secret | default (printf "%stm-secret" (include "fullname" .))  }}
                 key: user
           - name: TENANT_MANAGER_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.tenantManager.secret | default  (printf "%s-tm" (include "fullname" .))  }}
+                name: {{ .Values.tenantManager.secret | default  (printf "%stm-secret" (include "fullname" .))  }}
+                key: password
+        {{- end }}
+        {{- if .Values.tenantManagement.enabled }}
+          - name: TENANT_MANAGER_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.tenantManagement.secret | default (printf "%s-secret" (include "fullname" .))  }}
+                key: user
+          - name: TENANT_MANAGER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.tenantManagement.secret | default  (printf "%s-secret" (include "fullname" .))  }}
                 key: password
         {{- end }}
         {{- if .Values.s3.enabled }}
