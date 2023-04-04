@@ -1,0 +1,23 @@
+<o-form-layout-manager mode="tab" store-state="no" title="LOCATION TAGS" label-columns="location_tag_id" attr="o-form-layout-location-tags-home"
+  title-data-origin="location_tags_form_edit">
+  <o-form show-header="no" query-on-init="no" fxFill>
+
+    <o-row title="LOCATION" appearance="no" layout-gap="15px">
+     <o-combo attr="ref_location_id" label="locations" service="locations" entity="locations" sql-type="UUID"
+       value-column="location_id" columns="location_id;name" visible-columns="name" required="true" sort="asc"
+       (onChange)="reloadLocationTags()">
+     </o-combo>
+    </o-row>
+
+    <o-table #locationtagsTable attr="locations" service="locations" entity="locationTags" 
+      keys="ref_location_id;location_tag_id" 
+      parent-keys="ref_location_id"
+      columns="ref_location_id;location_tag_id;ref_tag_id;value"
+      visible-columns="location_tag_id;value"
+      sort-columns="locationtag_name"
+      query-rows="25" quick-filter="yes" row-height="medium" pageable="no" query-on-init="yes" query-on-bind="false"
+      select-all-checkbox-visible="yes" refresh-button="no" fixed-header="yes"
+      class="home-table" fxFlex export-mode="local">
+    </o-table>
+  </o-form>
+</o-form-layout-manager>

@@ -1,5 +1,5 @@
 spring:
   datasource:
     jdbc-url: jdbc:postgresql://database/prototypen
-    username: testuser
-    password: testuser
+    username: postgres
+    password: postgrespwd

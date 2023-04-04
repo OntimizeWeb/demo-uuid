@@ -1,0 +1,30 @@
+<o-form #form attr="location_tags_form_edit" service="locations" entity="locationTags" header-actions="R;I;U" keys="ref_location_id;location_tag_id" keys-sql-types="UUID;UUID"
+  columns="location_tag_id" header-position="bottom" layout-direction="row" detect-changes-on-blur="no" fxFill undo-button="no"
+  stay-in-record-after-insert="true" (onInitialMode)="onInitialMode()" (onInsertMode)="onInsertMode()">
+
+  <div fxLayout="row" fxLayoutGap="30px" fxFill>
+    <div fxLayout="column" fxFlex="calc(50% - 15px)" fxLayoutGap="15px">
+      <o-row title="LOCATION-TAG-DATA-SECTION" appearance="no" layout-gap="15px">
+        <div fxLayout="column" fxLayoutGap="15px" fxFlex="100%" >
+        <!--
+          <o-combo attr="ref_location_id" label="location" service="locations" entity="locations"
+            keys="location_id" value-column="location_id" columns="location_id;name" visible-columns="name"
+            required="true" enabled="false" sort="asc">
+          </o-combo>
+ -->
+           <o-combo attr="ref_tag_id" label="tag" service="tags" entity="tags"
+            keys="tag_id" value-column="tag_id" columns="tag_id;name" visible-columns="name"
+            required="true" sort="asc">
+          </o-combo>
+          <o-text-input attr="value" fxFlex="100%" required="yes" sql-type="integer"></o-text-input>
+          <o-text-input attr="down_user" label="down_user"></o-text-input>
+          <o-date-input attr="down_date" label="down_date"></o-date-input>
+
+          <o-combo attr="location_tag_id" label="location" service="locations" entity="locationTags" parent-keys="ref_location_id"
+            keys="location_tag_id" value-column="location_tag_id" columns="location_tag_id;ref_location_id;location_tag_id;value" visible-columns="value">
+          </o-combo>
+        </div>
+      </o-row>
+    </div>
+  </div>
+</o-form>

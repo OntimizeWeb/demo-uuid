@@ -1,0 +1,12 @@
+<o-form #form attr="locations_form_edit" service="locations" entity="locations" keys="location_id" keys-sql-types="UUID" header-position="bottom"
+  detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true">
+
+  <div fxLayout="row" fxLayoutGap="30px" class="pd-permissions-container" fxFlex="1 1 auto">
+    <div fxLayout="column" fxFlex="50" fxFlex.md="100" fxLayoutGap="30px">
+      <o-text-input attr="name" label="name" required="yes"></o-text-input>
+      <o-textarea-input attr="description" label="description"></o-textarea-input>
+      <o-text-input attr="down_user" label="down_user"></o-text-input>
+      <o-date-input attr="down_date" label="down_date"></o-date-input>
+    </div>
+  </div>
+</o-form>

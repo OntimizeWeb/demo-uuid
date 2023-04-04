@@ -13,6 +13,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) },
+      { path: 'tags', loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule) },
+      { path: 'locationtags', loadChildren: () => import('./locationtags/locationtags.module').then(m => m.LocationTagsModule) },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'profile', component: ProfileComponent }

@@ -1,0 +1,23 @@
+<o-form-layout-manager attr="o-form-layout-tags-home" mode="tab" store-state="no" title="Tags" label-columns="name"
+  title-data-origin="tags_form_edit" fxFill>
+  <o-form show-header="no" query-on-init="no" fxFill>
+    <filter title="FILTER_PROFILES">
+      <div fxLayout="row" fxLayoutGap="15px">
+        <o-text-input attr="name" label="name"></o-text-input>
+        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT"  color="primary" label="BUTTON.FILTER">
+        </o-button>
+        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="BUTTON.CLEARFILTERS" icon="clear" class="o-button-default"></o-button>
+        <o-filter-builder #filterBuilder attr="tagsFB" filters="name" [target]="tagsTable">
+        </o-filter-builder>
+      </div>
+    </filter>
+
+    <o-table #tagsTable attr="tags" service="tags" entity="tags" keys="tag_id" columns="tag_id;name;description"
+      visible-columns="name;description" sort-columns="name" query-on-init="yes" insert-button="no" delete-button="no" refresh-button="no"
+      select-all-checkbox-visible="yes" fixed-header="yes" query-rows="25" class="home-table" fxFlex export-mode="local">
+      <o-table-columns-filter columns="name"></o-table-columns-filter>
+    </o-table>
+
+  <home-toolbar [table]="tagsTable"></home-toolbar>
+  </o-form>
+</o-form-layout-manager>
