@@ -184,4 +184,12 @@ public interface IUserAndRoleService {
 	 *             the exception
 	 */
 	EntityResult passwordUpdate(Map<?, ?> attributesValues, Map<?, ?> keysValues) throws OntimizeJEERuntimeException;
+
+    /**
+     * Returns the client permissions
+     *
+     * @return the client permissions
+     * @throws OntimizeJEERuntimeException if occurs
+     */
+	EntityResult getClientPermissions() throws OntimizeJEERuntimeException;
 }

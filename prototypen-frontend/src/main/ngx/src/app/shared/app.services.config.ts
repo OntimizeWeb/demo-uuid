@@ -7,5 +7,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'tags': {
     'path': '/tags'
-  }
+  },
+  permissions: {
+    'path': '/permissions'
+  },
 };

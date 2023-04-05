@@ -8,7 +8,6 @@ import { UserInfoService } from '../../../shared/services/user-info.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-
 })
 export class SettingsAccountComponent {
   @ViewChild('form', { static: true }) form: OFormComponent;
@@ -30,11 +29,11 @@ export class SettingsAccountComponent {
   }
 
   newPasswordMatchValidator(control: FormControl): ValidationErrors {
-    const newPassword = control.parent.controls['new_password']
+    const newPassword = control.parent.controls['new_password'];
     const confirmNewPassword = control.parent.controls['confirm_new_password'];
 
     return newPassword && confirmNewPassword && newPassword.value === confirmNewPassword.value ? null : { matchNewPassword: true };
-  };
+  }
 
   isChangePasswordButtonDisabled() {
     return this.form.formGroup.invalid;

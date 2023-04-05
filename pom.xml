@@ -130,7 +130,6 @@
 			<id>preview</id>
 		</profile>
 	</profiles>
-
 	<modules>
 		<module>prototypen-api</module>
 		<module>prototypen-model</module>

@@ -3,3 +3,5 @@ spring:
     jdbc-url: jdbc:postgresql://database/prototypen
     username: postgres
     password: postgrespwd
+environment:
+  profile: compose
