@@ -18,6 +18,8 @@
       query-rows="25" quick-filter="yes" row-height="medium" pageable="no" query-on-init="yes" query-on-bind="false"
       select-all-checkbox-visible="yes" refresh-button="no" fixed-header="yes"
       class="home-table" fxFlex export-mode="local">
+      <o-table-column attr="ref_location_id" sql-type="UUID"></o-table-column>
+      <o-table-column attr="location_tag_id" sql-type="UUID"></o-table-column>
     </o-table>
   </o-form>
 </o-form-layout-manager>
