@@ -4,7 +4,7 @@ Application template based in Ontimize Web and Ontimize Boot (java 11).
 
 Use this template to generate an application with a standard structure and a predefined Ontimize configuration for an unique tenant and Ontimize authentication, using a PostgreSQL database.
 
-Take a look at application.yml and Ontimize Boot documentation to customize as needed. 
+Take a look at application.yml and Ontimize Boot documentation to customize as needed.
 
 Several Spring Boot configuration files are provided. For K8s environment it is recommended that Spring actuator is configured in a different port than the application. (see application-staging.yml)
 
@@ -13,16 +13,16 @@ This application is ready to be deployed in a Kubernetes Cluster, using provided
 Other files provided:
 
 		./Dockerfile: Provided as is. Adapt as needed.
-		
+
 		./.git/workflows/maven-build-docker-ecr.yaml: Adapt as needed. Provided setup is:
-		
+
 			- Fires on push in develop branch
 			- Performs maven verify
 			- Builds docker image
 			- Extracts project version from pom.xml
 			- Updates version in ./charts/xxx/Chart.yaml
 			- Pushes docker image to Amazon AWS ECR (login, repository, etc. are automatically done. Credentials are not needed if repository organization is imatia-innovation).
-		
+
 		Note: Amazon AWS ECR can be customized depending on infrastructure needs and setup. Provided configuration is standard and should work in most cases.
 
 It is recommended to use environment variables in Spring configuration files for configuration values that depend on the environment.
@@ -106,5 +106,9 @@ The application is deployed as a docker container in the url: http://localhost:8
  - Go to the `boot/target` folder and run the command
 
  		java -jar <name_of_the_boot_jar>
+
+### Deploy local
+  - java -Dspring.profiles.active=local -jar prototypen-boot/target/prototypen-boot.jar
+  - docker run --name postgresql -e POSTGRESQL_POSTGRES_PASSWORD=postgrespwd -e POSTGRESQL_USERNAME=postgres -e POSTGRESQL_PASSWORD=postgrespwd -e POSTGRESQL_DATABASE=prototypen -p 5432:5432 bitnami/postgresql:11.12.0-debian-10-r13
 
 Use the following URL to access the [http://localhost:8080/app/index.html](http://localhost:8080/app/index.html) application
