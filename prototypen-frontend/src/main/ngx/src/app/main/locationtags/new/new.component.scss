@@ -1,0 +1,32 @@
+:host  ::ng-deep {
+    .o-form form.inner-form {
+      height: 100% !important;
+    }
+  }
+
+
+.pending-tasks-menu-header-description{
+    font-weight: bold;
+    cursor:auto;
+}
+.pending-tasks-menu-header-description:hover {
+    font-weight: bold;
+    background: rgba(0,0,0,0);
+}
+
+.pending-tasks-menu-description{
+    max-width: 250px;
+    display: inline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: inherit;
+    line-height: 12px;
+    align-self: center;
+}
+
+.options-icon {
+  margin:2px;
+  align-self: flex-end;
+  cursor: pointer;
+}

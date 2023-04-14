@@ -1,0 +1,53 @@
+<o-form-layout-manager attr="o-form-layout-locations-home" mode="modal" store-state="no" title="Locations" label-columns="name"
+  title-data-origin="locations_form_edit" fxFill>
+  <o-form show-header="no" query-on-init="no" fxFill>
+    <mat-button-toggle-group name="data" [(ngModel)]="data">
+      <mat-button-toggle value="locationsTable">TABLE</mat-button-toggle>
+      <mat-button-toggle value="locationsGrid">GRID</mat-button-toggle>
+      <mat-button-toggle value="locationList">LIST</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <filter title="FILTER_PROFILES">
+      <div fxLayout="row" fxLayoutGap="15px">
+        <o-text-input attr="name" label="name"></o-text-input>
+        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary" label="BUTTON.FILTER">
+        </o-button>
+        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="BUTTON.CLEARFILTERS" icon="clear"
+          class="o-button-default"></o-button>
+        <o-filter-builder #filterBuilder attr="locationsFB" filters="name" [target]="locationsTable">
+        </o-filter-builder>
+      </div>
+    </filter>
+
+    <o-table *ngIf="data==='locationsTable'" #locationsTable attr="locations" service="locations" entity="locations" keys="location_id"
+      columns="location_id;name;description" visible-columns="name;description" sort-columns="name" query-on-init="yes" insert-button="yes"
+      delete-button="yes" refresh-button="yes" fixed-header="yes" query-rows="25" class="home-table" fxFlex export-mode="local" detail-mode="none"
+      edition-mode="click">
+      <o-table-insertable-row columns="name;description" required-columns="STARTDATE" show-placeholder="yes"></o-table-insertable-row>
+      <o-table-column attr="location_id" sql-type="UUID"></o-table-column>
+      <o-table-column attr="name" editable="yes"></o-table-column>
+      <o-table-column attr="description" editable="yes"></o-table-column>
+    </o-table>
+    <o-grid *ngIf="data==='locationsGrid'" #locationsGrid attr="locations" service="locations" entity="locations" keys="location_id"
+      columns="location_id;name;description" sort-columns="name" query-on-init="yes" insert-button="yes" delete-button="yes" refresh-button="yes"
+      fixed-header="yes" query-rows="25" class="home-table" fxFlex>
+      <o-grid-item *ngFor="let list of locationsGrid.dataArray">
+        <p><label>LOCATION_ID: </label>{{list.location_id}}<br></p>
+        <p><label>LOCATION NAME: </label>{{list.name}}<br></p>
+        <p><label>LOCATION DESCRIPTION: </label>{{list.description}}<br></p>
+        <mat-divider></mat-divider>
+      </o-grid-item>
+    </o-grid>
+    <o-list *ngIf="data==='locationList'" #locationsList attr="locations" service="locations" entity="locations" keys="location_id"
+      columns="location_id;name;description" sort-columns="name" query-on-init="yes" insert-button="yes" delete-button="yes" refresh-button="yes"
+      fixed-header="yes" query-rows="25" class="home-table" fxFlex selectable="true" keys-sql-types="UUID">
+      <o-list-item *ngFor="let list of locationsList.dataArray">
+        <p><label>LOCATION_ID: </label>{{list.location_id}}<br></p>
+        <p><label>LOCATION NAME: </label>{{list.name}}<br></p>
+        <p><label>LOCATION DESCRIPTION: </label>{{list.description}}<br></p>
+        <mat-divider></mat-divider>
+      </o-list-item>
+    </o-list>
+    <home-toolbar [table]="locationsTable"></home-toolbar>
+  </o-form>
+</o-form-layout-manager>

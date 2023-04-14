@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'home-tags',
+  selector: 'home-locations',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeTagsComponent implements OnInit {
+export class HomeLocationsComponent implements OnInit {
 
+  data = 'locationsTable';
   constructor() { }
 
-  data = 'tagsTable';
   ngOnInit() {
   }
 

@@ -18,4 +18,4 @@ import { SharedModule } from '../../shared/shared.module';
     LocationsRoutingModule
   ]
 })
-export class LocationsTabModule { }
+export class LocationsDataModule { }

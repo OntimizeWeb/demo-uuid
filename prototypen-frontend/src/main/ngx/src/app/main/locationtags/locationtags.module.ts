@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { HomeLocationTagsComponent } from './home/home.component';
 import { LocationTagsRoutingModule } from './locationtags-routing.module';
-import { DetailLocationTagsComponent } from './detail/detail.component';
 import { SharedModule } from '../../shared/shared.module';
+import { NewLocationTagsComponent } from './new/new.component';
+import { DetailLocationTagsComponent } from './edit/detail.component';
+import { TagsModule } from '../tags/tags.module';
 
 @NgModule({
-  declarations: [HomeLocationTagsComponent, DetailLocationTagsComponent],
+  declarations: [HomeLocationTagsComponent, NewLocationTagsComponent, DetailLocationTagsComponent],
   imports: [
     CommonModule,
     SharedModule,
     OntimizeWebModule,
-    LocationTagsRoutingModule
+    LocationTagsRoutingModule,
+    TagsModule
   ],
   exports: [],
   providers: [],
